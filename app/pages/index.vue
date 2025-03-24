@@ -3,6 +3,6 @@
 
 <template>
   <UDashboardPanel id="home">
-
+    <Chat />
   </UDashboardPanel>
 </template>

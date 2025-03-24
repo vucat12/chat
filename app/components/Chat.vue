@@ -39,13 +39,13 @@ const { messages, input, handleSubmit, isLoading, stop, error, reload } = useCha
       />
       <UButton
         v-if="isLoading"
-        icon="i-heroicons-stop"
+        icon="i-lucide-square"
         color="neutral"
         @click="stop"
       />
       <UButton
         v-else
-        icon="i-heroicons-paper-airplane"
+        icon="i-lucide-send"
         type="submit"
         color="neutral"
       />

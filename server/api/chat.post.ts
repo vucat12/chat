@@ -15,22 +15,11 @@ export default defineEventHandler(async (event) => {
 
   return streamText({
     model: workersAI('@cf/meta/llama-3.1-8b-instruct'),
+    system: 'You are a helpful assistant that can answer questions and help with Nuxt UI and Nuxt UI Pro v3.',
+
     messages
   }).toDataStreamResponse({
-    // headers: {
-    //   // add these headers to ensure that the
-    //   // response is chunked and streamed
-    //   'content-type': 'text/x-unknown',
-    //   'content-encoding': 'identity',
-    //   'transfer-encoding': 'chunked'
-    // }
+    headers: {
+    }
   })
-
-  // For testing purposes, we'll randomly throw an error
-  // if (Math.round(Math.random()) === 1) {
-  //   throw createError({
-  //     status: 500,
-  //     statusMessage: 'Nope'
-  //   })
-  // }
 })
