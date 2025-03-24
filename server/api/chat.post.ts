@@ -16,7 +16,6 @@ export default defineEventHandler(async (event) => {
   return streamText({
     model: workersAI('@cf/meta/llama-3.1-8b-instruct'),
     system: 'You are a helpful assistant that can answer questions and help with Nuxt UI and Nuxt UI Pro v3.',
-
     messages
   }).toDataStreamResponse({
     headers: {
