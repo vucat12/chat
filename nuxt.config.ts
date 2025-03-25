@@ -4,7 +4,8 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/ui-pro',
     '@nuxtjs/mdc',
-    '@nuxthub/core'
+    '@nuxthub/core',
+    'nuxt-auth-utils'
   ],
 
   devtools: {
@@ -17,10 +18,15 @@ export default defineNuxtConfig({
     compatibilityVersion: 4
   },
 
+  experimental: {
+    viewTransition: true
+  },
+
   compatibilityDate: '2024-07-11',
 
   hub: {
-    ai: true
+    ai: true,
+    database: true
   },
 
   eslint: {
