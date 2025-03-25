@@ -33,7 +33,7 @@ onMounted(() => {
   <UDashboardPanel id="chat">
     <template #body>
       <UContainer class="w-full">
-        <UChatMessages :messages="messages" />
+        <UChatMessages :messages="messages" :status="status" />
       </UContainer>
     </template>
 
