@@ -9,7 +9,7 @@
       class="bg-(--ui-bg-elevated)/25"
       :ui="{ footer: 'lg:border-t lg:border-(--ui-border)' }"
     >
-      <template #header="{ collapsed }">
+      <template #header>
         Chat
       </template>
     </UDashboardSidebar>
