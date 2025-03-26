@@ -1,26 +1,26 @@
 <script lang="ts">
-import type { UseChatHelpers } from '@ai-sdk/vue'
+import type { Message } from '@ai-sdk/vue'
 
 interface ChatMessagesProps {
-  messages: UseChatHelpers['messages']['value']
-  status: UseChatHelpers['status']['value']
-  shouldAutoScroll: boolean
-  scrollToBottom: () => void
+  messages: Message[]
+  status: 'submitted' | 'streaming' | 'ready' | 'error'
 }
 </script>
 
 <script setup lang="ts">
 const props = defineProps<ChatMessagesProps>()
+
+const { el, shouldAutoScroll, scrollToBottom } = useChatScroll(toRef(props, 'messages'), toRef(props, 'status'))
 </script>
 
 <template>
-  <div class="relative w-full">
-    <div class="flex flex-col gap-4 w-full">
+  <div ref="el" class="w-full flex flex-col flex-1 relative">
+    <div class="flex flex-col flex-1 gap-4 w-full">
       <div
         v-for="message in messages"
         :key="message.id"
+        class="max-w-[75%]"
         :class="[
-          'max-w-[75%]',
           message.role === 'assistant'
             ? 'me-auto px-4.5'
             : 'ms-auto px-2.5'
@@ -29,36 +29,35 @@ const props = defineProps<ChatMessagesProps>()
         <MDC :value="message.content" />
       </div>
 
-      <!-- Typing indicator when streaming -->
-      <div
-        v-if="status === 'streaming'"
-        class="p-3 rounded-lg max-w-[80%] bg-gray-100 me-auto"
-      >
-        <div class="flex gap-1">
-          <span class="h-2 w-2 rounded-full bg-gray-400 animate-bounce" style="animation-delay: 0ms" />
-          <span class="h-2 w-2 rounded-full bg-gray-400 animate-bounce" style="animation-delay: 150ms" />
-          <span class="h-2 w-2 rounded-full bg-gray-400 animate-bounce" style="animation-delay: 300ms" />
-        </div>
+      <div v-if="status === 'submitted'" class="flex gap-1 max-w-[75%] me-auto px-4.5 my-5">
+        <span class="size-2 rounded-full bg-(--ui-bg-accented) animate-bounce" />
+        <span class="size-2 rounded-full bg-(--ui-bg-accented) animate-bounce [animation-delay:150ms]" />
+        <span class="size-2 rounded-full bg-(--ui-bg-accented) animate-bounce [animation-delay:300ms]" />
       </div>
-
-      <!-- Invisible element at the end -->
-      <div ref="messagesEndRef" class="h-1 w-full" />
     </div>
 
-    <!-- Scroll to bottom button -->
-    <div
-      v-if="!shouldAutoScroll"
-      class="absolute bottom-4 right-4 z-10"
-    >
-      <UButton
-        icon="i-heroicons-arrow-down"
-        color="primary"
-        variant="soft"
-        size="sm"
-        @click="() => { scrollToBottom(); }"
-      >
-        Scroll to bottom
-      </UButton>
-    </div>
+    <Transition name="fade">
+      <div v-if="!shouldAutoScroll" class="fixed left-1/2 -translate-x-1/2 top-[79%]">
+        <UButton
+          class=" z-10 rounded-full"
+          icon="i-lucide-arrow-down"
+          color="neutral"
+          variant="outline"
+          @click="scrollToBottom()"
+        />
+      </div>
+    </Transition>
   </div>
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

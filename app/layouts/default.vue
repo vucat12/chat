@@ -18,7 +18,6 @@ const { data: chats, refresh } = useFetch('/api/chats', {
     label: chat.title ?? 'Untitled',
     to: `/chat/${chat.id}`,
     icon: 'i-lucide-message-circle',
-    slot: 'chat',
     createdAt: chat.createdAt
   }))
 })
@@ -33,7 +32,10 @@ const items = computed(() => groups.value?.flatMap((group) => {
   return [{
     label: group.label,
     type: 'label' as const
-  }, ...group.items]
+  }, ...group.items.map(item => ({
+    ...item,
+    slot: 'chat' as const
+  }))]
 }))
 
 async function deleteChat(id: string) {

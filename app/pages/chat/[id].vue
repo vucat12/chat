@@ -27,44 +27,33 @@ onMounted(() => {
     reload()
   }
 })
-
-const { container, shouldAutoScroll, scrollToBottom } = useChatScroll(messages, status)
-
-console.log('container.value', container.value)
 </script>
 
 <template>
-  <UDashboardPanel id="chat">
-    <template #body>
-      <UContainer class="flex-1 flex flex-col">
-        <button @click="scrollToBottom">
-          Scroll to bottom
-        </button>
-        <UChatMessages
-          :messages="messages"
-          :status="status"
-          :should-auto-scroll="shouldAutoScroll"
-          :scroll-to-bottom="scrollToBottom"
-          class="py-8 flex-1"
-        />
+  <UDashboardPanel id="chat" class="overflow-y-auto">
+    <UContainer class="flex-1 flex flex-col gap-4 sm:gap-6">
+      <UChatMessages
+        :messages="messages"
+        :status="status"
+        class="py-8"
+      />
 
-        <!-- <UChatPrompt
-          v-model="input"
-          :status="status"
-          :error="error"
-          :reload="reload"
-          :stop="stop"
-          class="!sticky bottom-0 inset-x-0 max-w-(--ui-container) mx-auto [view-transition-name:chat-prompt] rounded-b-none z-10 backdrop-blur-lg"
-          @submit="handleSubmit"
-        >
-          <template #footer>
-            <ModelSelect v-model="model" />
-          </template>
-        </UChatPrompt> -->
-      </UContainer>
-    </template>
+      <UChatPrompt
+        v-model="input"
+        :status="status"
+        :error="error"
+        :reload="reload"
+        :stop="stop"
+        class="!sticky bottom-0 inset-x-0 [view-transition-name:chat-prompt] rounded-b-none z-10 backdrop-blur-lg"
+        @submit="handleSubmit"
+      >
+        <template #footer>
+          <ModelSelect v-model="model" />
+        </template>
+      </UChatPrompt>
+    </UContainer>
 
-    <template #footer>
+    <!-- <template #footer>
       <UContainer>
         <UChatPrompt
           v-model="input"
@@ -80,6 +69,6 @@ console.log('container.value', container.value)
           </template>
         </UChatPrompt>
       </UContainer>
-    </template>
+    </template> -->
   </UDashboardPanel>
 </template>

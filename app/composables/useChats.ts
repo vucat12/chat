@@ -3,22 +3,23 @@ import { isToday, isYesterday, subMonths } from 'date-fns'
 interface Chat {
   id: string
   label: string
+  icon: string
   createdAt: string
 }
 
-export function useChats(chats?: Ref<Chat[]>) {
+export function useChats(chats: Ref<Chat[] | undefined>) {
   const groups = computed(() => {
     // Group chats by date
-    const today = [] as Chat[]
-    const yesterday = [] as Chat[]
-    const lastWeek = [] as Chat[]
-    const lastMonth = [] as Chat[]
-    const older = {} as Record<string, Chat[]>
+    const today: Chat[] = []
+    const yesterday: Chat[] = []
+    const lastWeek: Chat[] = []
+    const lastMonth: Chat[] = []
+    const older: Record<string, Chat[]> = {}
 
     const oneWeekAgo = subMonths(new Date(), 0.25) // ~7 days ago
     const oneMonthAgo = subMonths(new Date(), 1)
 
-    chats?.value?.forEach((chat) => {
+    chats.value?.forEach((chat) => {
       const chatDate = new Date(chat.createdAt)
 
       if (isToday(chatDate)) {

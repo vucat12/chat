@@ -2,8 +2,8 @@
 import type { UseChatHelpers } from '@ai-sdk/vue'
 
 interface ChatPromptProps extends Partial<Pick<UseChatHelpers, 'stop' | 'reload'>> {
-  status?: UseChatHelpers['status']['value']
-  error?: UseChatHelpers['error']['value']
+  status?: 'submitted' | 'streaming' | 'ready' | 'error'
+  error?: Error
 }
 
 interface ChatPromptEmits {
@@ -29,7 +29,7 @@ const submitButtonProps = computed(() => {
       icon: 'i-lucide-square',
       color: 'neutral' as const,
       variant: 'subtle' as const,
-      onClick: () => {
+      onClick() {
         props.stop?.()
       }
     },
@@ -37,14 +37,14 @@ const submitButtonProps = computed(() => {
       icon: 'i-lucide-square',
       color: 'neutral' as const,
       variant: 'subtle' as const,
-      onClick: () => {
+      onClick() {
         props.stop?.()
       }
     },
     error: {
       icon: 'i-lucide-circle-alert',
       variant: 'subtle' as const,
-      onClick: () => {
+      onClick() {
         props.reload?.()
       }
     }
