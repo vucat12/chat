@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useChat } from '@ai-sdk/vue'
 
-const { model } = useLLM()
 const route = useRoute()
+const { model } = useLLM()
 
 const { data: chat } = await useFetch(`/api/chats/${route.params.id}`)
 if (!chat.value) {
@@ -27,25 +27,52 @@ onMounted(() => {
     reload()
   }
 })
+
+const { container, shouldAutoScroll, scrollToBottom } = useChatScroll(messages, status)
+
+console.log('container.value', container.value)
 </script>
 
 <template>
   <UDashboardPanel id="chat">
     <template #body>
-      <UContainer class="w-full">
-        <UChatMessages :messages="messages" :status="status" />
+      <UContainer class="flex-1 flex flex-col">
+        <button @click="scrollToBottom">
+          Scroll to bottom
+        </button>
+        <UChatMessages
+          :messages="messages"
+          :status="status"
+          :should-auto-scroll="shouldAutoScroll"
+          :scroll-to-bottom="scrollToBottom"
+          class="py-8 flex-1"
+        />
+
+        <!-- <UChatPrompt
+          v-model="input"
+          :status="status"
+          :error="error"
+          :reload="reload"
+          :stop="stop"
+          class="!sticky bottom-0 inset-x-0 max-w-(--ui-container) mx-auto [view-transition-name:chat-prompt] rounded-b-none z-10 backdrop-blur-lg"
+          @submit="handleSubmit"
+        >
+          <template #footer>
+            <ModelSelect v-model="model" />
+          </template>
+        </UChatPrompt> -->
       </UContainer>
     </template>
 
     <template #footer>
-      <UContainer class="w-full">
+      <UContainer>
         <UChatPrompt
           v-model="input"
           :status="status"
           :error="error"
           :reload="reload"
           :stop="stop"
-          class="[view-transition-name:chat-prompt] rounded-b-none bg-(--ui-bg)"
+          class="[view-transition-name:chat-prompt] rounded-b-none"
           @submit="handleSubmit"
         >
           <template #footer>

@@ -21,7 +21,7 @@ async function onSubmit() {
 <template>
   <UDashboardPanel id="home" :ui="{ body: 'flex flex-col justify-center flex-1' }">
     <template #body>
-      <UContainer class="w-full">
+      <UContainer>
         <ProseH1>How can I help you today?</ProseH1>
 
         <UChatPrompt

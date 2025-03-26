@@ -1,4 +1,4 @@
-export const useLLM = () => {
+export function useLLM() {
   const models = [
     '@hf/thebloke/deepseek-coder-6.7b-base-awq',
     '@hf/thebloke/deepseek-coder-6.7b-instruct-awq',

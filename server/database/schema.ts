@@ -17,7 +17,7 @@ export const chatsRelations = relations(chats, ({ many }) => ({
 
 export const messages = sqliteTable('messages', {
   id: text().primaryKey().$defaultFn(() => randomUUID()),
-  chatId: text().notNull().references(() => chats.id),
+  chatId: text().notNull().references(() => chats.id, { onDelete: 'cascade' }),
   role: text({ enum: ['user', 'assistant'] }).notNull(),
   content: text().notNull(),
   createdAt: integer({ mode: 'timestamp' }).notNull().default(sql`(unixepoch())`)

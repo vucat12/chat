@@ -21,9 +21,17 @@ const input = defineModel<string>()
 
 const submitButtonProps = computed(() => {
   return ({
-    submitted: {
+    ready: {
       icon: 'i-lucide-arrow-up',
-      variant: 'subtle' as const
+      type: 'submit' as const
+    },
+    submitted: {
+      icon: 'i-lucide-square',
+      color: 'neutral' as const,
+      variant: 'subtle' as const,
+      onClick: () => {
+        props.stop?.()
+      }
     },
     streaming: {
       icon: 'i-lucide-square',
@@ -32,11 +40,6 @@ const submitButtonProps = computed(() => {
       onClick: () => {
         props.stop?.()
       }
-    },
-    ready: {
-      icon: 'i-lucide-arrow-up',
-      variant: 'subtle' as const,
-      type: 'submit' as const
     },
     error: {
       icon: 'i-lucide-circle-alert',
@@ -73,8 +76,7 @@ function onSubmit(e: Event) {
       @keydown.enter.exact.prevent="onSubmit"
     >
       <div class="flex items-center justify-end gap-1.5">
-        {{ status }}
-        <UButton v-bind="submitButtonProps" :disabled="!input" />
+        <UButton :disabled="!input" v-bind="submitButtonProps" />
       </div>
     </UTextarea>
 
