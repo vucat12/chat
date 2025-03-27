@@ -85,7 +85,7 @@ defineShortcuts({
       autofocus
       :disabled="Boolean(error)"
       :rows="1"
-      :ui="{ base: 'resize-none' }"
+      :ui="{ base: 'resize-none text-base/5' }"
       class="items-start"
       @keydown.enter.exact.prevent="onSubmit"
       @keydown.esc="blur"
