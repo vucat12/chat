@@ -28,6 +28,7 @@
     "workers-ai-provider": "^0.2.0"
   },
   "devDependencies": {
+    "@iconify-json/logos": "^1.2.4",
     "@nuxt/eslint": "^1.2.0",
     "drizzle-kit": "^0.30.5",
     "eslint": "^9.23.0",

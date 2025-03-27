@@ -15,9 +15,10 @@ const deleteModal = overlay.create(LazyModalConfirm, {
 })
 
 const { data: chats, refresh } = useFetch('/api/chats', {
+  key: 'chats',
   transform: data => data.map(chat => ({
     id: chat.id,
-    label: chat.title ?? 'Untitled',
+    label: chat.title || 'Untitled',
     to: `/chat/${chat.id}`,
     icon: 'i-lucide-message-circle',
     createdAt: chat.createdAt
@@ -39,7 +40,8 @@ const items = computed(() => groups.value?.flatMap((group) => {
   }, ...group.items.map(item => ({
     ...item,
     slot: 'chat' as const,
-    icon: undefined
+    icon: undefined,
+    class: item.label === 'Untitled' ? 'text-(--ui-text-muted)' : ''
   }))]
 }))
 
@@ -155,6 +157,7 @@ defineShortcuts({
           variant="ghost"
           class="w-full"
         />
+        <UColorModeButton />
       </template>
     </UDashboardSidebar>
 

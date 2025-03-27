@@ -4,32 +4,8 @@ export default defineEventHandler(async (event) => {
   const { input } = await readBody(event)
   const db = useDrizzle()
 
-  let title
-  try {
-    // @ts-expect-error - hubAI is not well typed
-    const { response } = await hubAI().run('@cf/meta/llama-3-8b-instruct', {
-      stream: false,
-      messages: [{
-        role: 'system',
-        content: `\n
-        - you will generate a short title based on the first message a user begins a conversation with
-        - ensure it is not more than 30 characters long
-        - the title should be a summary of the user's message
-        - do not use quotes or colons
-        - do not use markdown, just plain text`
-      }, {
-        role: 'user',
-        content: input
-      }]
-    })
-
-    title = response
-  } catch {
-    title = input
-  }
-
   const chat = await db.insert(tables.chats).values({
-    title,
+    title: '',
     userId: session.id
   }).returning().get()
 

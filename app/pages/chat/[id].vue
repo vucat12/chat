@@ -21,6 +21,11 @@ const { messages, input, handleSubmit, reload, stop, status, error } = useChat({
   body: {
     model: model.value
   },
+  onResponse(response) {
+    if (response.headers.get('X-Chat-Title')) {
+      refreshNuxtData('chats')
+    }
+  },
   onError(error) {
     const { message } = typeof error.message === 'string' && error.message[0] === '{' ? JSON.parse(error.message) : error
     toast.add({

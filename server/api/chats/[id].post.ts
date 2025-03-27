@@ -28,6 +28,27 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 404, statusMessage: 'Chat not found' })
   }
 
+  if (!chat.title) {
+    // @ts-expect-error - response is not typed
+    const { response: title } = await hubAI().run('@cf/meta/llama-3.1-8b-instruct-fast', {
+      stream: false,
+      messages: [{
+        role: 'system',
+        content: `
+        - Generate a short title based on the first message a user begins a conversation with
+        - Ensure it is not more than 30 characters long
+        - The title should be a summary of the user's message
+        - Do not use quotes (' or ") or colons (:) or any other punctuation
+        - Do not use markdown, just plain text`
+      }, {
+        role: 'user',
+        content: chat.messages[0]!.content
+      }]
+    })
+    setHeader(event, 'X-Chat-Title', title.replace(/:/g, ''))
+    await db.update(tables.chats).set({ title }).where(eq(tables.chats.id, id as string))
+  }
+
   const lastMessage = messages[messages.length - 1]
   if (lastMessage.role === 'user' && messages.length > 1) {
     await db.insert(tables.messages).values({
