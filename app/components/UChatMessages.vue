@@ -27,7 +27,7 @@ const { el, shouldAutoScroll, scrollToBottom } = useChatScroll(toRef(props, 'mes
             : 'ms-auto'
         ]"
       >
-        <MDC :value="message.content" class="*:first:mt-0 *:last:mb-0" />
+        <MDC :value="message.content" :cache-key="message.id" class="*:first:mt-0 *:last:mb-0" />
       </UPageCard>
 
       <div v-if="status === 'submitted'" class="flex gap-1 max-w-[75%] me-auto px-2.5 py-5">

@@ -59,6 +59,12 @@ async function deleteChat(id: string) {
     navigateTo('/')
   }
 }
+
+defineShortcuts({
+  c: () => {
+    navigateTo('/')
+  }
+})
 </script>
 
 <template>
@@ -101,7 +107,7 @@ async function deleteChat(id: string) {
               variant: 'soft'
             } : {
               label: 'New chat',
-              variant: 'subtle'
+              variant: 'soft'
             }"
             block
             to="/"

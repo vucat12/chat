@@ -27,7 +27,6 @@ const submitButtonProps = computed(() => {
     },
     submitted: {
       icon: 'i-lucide-square',
-      color: 'neutral' as const,
       variant: 'subtle' as const,
       onClick() {
         props.stop?.()
@@ -35,15 +34,15 @@ const submitButtonProps = computed(() => {
     },
     streaming: {
       icon: 'i-lucide-square',
-      color: 'neutral' as const,
       variant: 'subtle' as const,
       onClick() {
         props.stop?.()
       }
     },
     error: {
-      icon: 'i-lucide-circle-alert',
-      variant: 'subtle' as const,
+      icon: 'i-lucide-refresh-ccw',
+      color: 'error' as const,
+      variant: 'soft' as const,
       onClick() {
         props.reload?.()
       }
@@ -56,14 +55,26 @@ function onSubmit(e: Event) {
     return
   }
 
-  e.preventDefault()
   emit('submit', e)
 }
+
+const textarea = useTemplateRef('textarea')
+
+function blur() {
+  textarea.value?.textareaRef?.blur()
+}
+
+defineShortcuts({
+  '/': () => {
+    textarea.value?.textareaRef?.focus()
+  }
+})
 </script>
 
 <template>
   <form class="relative flex flex-col items-stretch gap-2 p-2.5 w-full rounded-[calc(var(--ui-radius)*2)] bg-(--ui-bg-elevated)/50 ring ring-(--ui-border)" @submit.prevent="onSubmit">
     <UTextarea
+      ref="textarea"
       v-model="input"
       placeholder="Type your message here..."
       variant="none"
@@ -74,9 +85,10 @@ function onSubmit(e: Event) {
       :ui="{ base: 'resize-none' }"
       class="items-start"
       @keydown.enter.exact.prevent="onSubmit"
+      @keydown.esc="blur"
     >
       <div class="flex items-center justify-end gap-1.5">
-        <UButton :disabled="!input" v-bind="submitButtonProps" />
+        <UButton :disabled="!input && status === 'ready'" color="neutral" v-bind="submitButtonProps" />
       </div>
     </UTextarea>
 

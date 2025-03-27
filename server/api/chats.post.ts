@@ -4,18 +4,33 @@ export default defineEventHandler(async (event) => {
   const { input } = await readBody(event)
   const db = useDrizzle()
 
-  let body
+  let title
   try {
-    body = await hubAI().run('@cf/facebook/bart-large-cnn', {
-      input_text: input,
-      max_length: 14
+    const { response } = await hubAI().run('@cf/meta/llama-3-8b-instruct', {
+      stream: false,
+      messages: [{
+        role: 'system',
+        content: `\n
+        - you will generate a short title based on the first message a user begins a conversation with
+        - ensure it is not more than 30 characters long
+        - the title should be a summary of the user's message
+        - do not use quotes or colons
+        - do not use markdown, just plain text`
+      }, {
+        role: 'user',
+        content: input
+      }]
     })
+
+    console.log('response', response)
+
+    title = response
   } catch {
-    body = input
+    title = input
   }
 
   const chat = await db.insert(tables.chats).values({
-    title: body.summary,
+    title,
     userId: session.id
   }).returning().get()
 

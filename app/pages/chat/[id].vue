@@ -2,6 +2,7 @@
 import { useChat } from '@ai-sdk/vue'
 
 const route = useRoute()
+const toast = useToast()
 const { model } = useLLM()
 
 const { data: chat } = await useFetch(`/api/chats/${route.params.id}`)
@@ -19,6 +20,15 @@ const { messages, input, handleSubmit, reload, stop, status, error } = useChat({
   })),
   body: {
     model: model.value
+  },
+  onError(error) {
+    const { message } = typeof error.message === 'string' && error.message[0] === '{' ? JSON.parse(error.message) : error
+    toast.add({
+      description: message,
+      icon: 'i-lucide-alert-circle',
+      color: 'error',
+      duration: 0
+    })
   }
 })
 
@@ -31,7 +41,16 @@ onMounted(() => {
 
 <template>
   <UDashboardPanel id="chat" class="overflow-y-auto">
-    <UDashboardNavbar class="border-b-0 absolute z-10" />
+    <UDashboardNavbar class="sticky top-0 border-b-0 z-10 bg-(--ui-bg)/75 backdrop-blur-lg w-full lg:hidden">
+      <template #right>
+        <UButton
+          color="neutral"
+          variant="ghost"
+          icon="i-lucide-plus"
+          to="/"
+        />
+      </template>
+    </UDashboardNavbar>
 
     <UContainer class="flex-1 flex flex-col gap-4 sm:gap-6">
       <UChatMessages
