@@ -157,7 +157,6 @@ defineShortcuts({
           variant="ghost"
           class="w-full"
         />
-        <UColorModeButton />
       </template>
     </UDashboardSidebar>
 
