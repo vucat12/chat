@@ -95,12 +95,12 @@ defineShortcuts({
       class="bg-(--ui-bg-elevated)/50"
     >
       <template #header="{ collapsed }">
-        <NuxtLink to="/" class="flex items-end gap-1.5">
+        <NuxtLink to="/" class="flex items-end gap-0.5">
           <Logo class="h-8 w-auto shrink-0" />
-          <span v-if="!collapsed" class="text-lg font-bold">Chat</span>
+          <span v-if="!collapsed" class="text-xl font-bold text-(--ui-text-highlighted)">Chat</span>
         </NuxtLink>
 
-        <div v-if="!collapsed" class="flex items-center ms-auto">
+        <div v-if="!collapsed" class="flex items-center gap-1.5 ms-auto">
           <UDashboardSearchButton collapsed />
           <UDashboardSidebarCollapse />
         </div>
