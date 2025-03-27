@@ -21,7 +21,7 @@ function onSubmit() {
 
 const quickChats = [
   {
-    label: 'What are the advantages of using Nuxt UI Pro?',
+    label: 'Why use Nuxt UI Pro?',
     icon: 'i-logos-nuxt-icon'
   },
   {
@@ -35,44 +35,49 @@ const quickChats = [
   {
     label: 'Why should I consider VueUse?',
     icon: 'i-logos-vueuse'
+  },
+  {
+    label: 'Tailwind CSS best practices',
+    icon: 'i-logos-tailwindcss-icon'
   }
 ]
 </script>
 
 <template>
-  <UDashboardPanel id="home" :ui="{ body: 'flex flex-col justify-center flex-1' }">
+  <UDashboardPanel id="home" :ui="{ body: 'flex flex-col justify-center flex-1 max-w-(--ui-container) mx-auto' }">
     <template #header>
       <DashboardNavbar />
     </template>
 
     <template #body>
-      <UContainer>
-        <ProseH1>How can I help you today?</ProseH1>
+      <h1 class="text-3xl sm:text-4xl text-(--ui-text-highlighted) font-bold">
+        How can I help you today?
+      </h1>
 
-        <UChatPrompt
-          v-model="input"
-          :status="loading ? 'streaming' : 'ready'"
-          class="[view-transition-name:chat-prompt]"
-          @submit="onSubmit"
-        >
-          <template #footer>
-            <ModelSelect v-model="model" />
-          </template>
-        </UChatPrompt>
+      <UChatPrompt
+        v-model="input"
+        :status="loading ? 'streaming' : 'ready'"
+        class="[view-transition-name:chat-prompt]"
+        @submit="onSubmit"
+      >
+        <template #footer>
+          <ModelSelect v-model="model" />
+        </template>
+      </UChatPrompt>
 
-        <div class="mt-6 flex flex-wrap gap-2">
-          <UBadge
-            v-for="quickChat in quickChats"
-            :key="quickChat.label"
-            :icon="quickChat.icon"
-            :label="quickChat.label"
-            color="neutral"
-            variant="outline"
-            class="cursor-pointer py-2 px-3 rounded-full hover:bg-(--ui-bg-muted)"
-            @click="createChat(quickChat.label)"
-          />
-        </div>
-      </UContainer>
+      <div class="flex flex-wrap gap-2">
+        <UButton
+          v-for="quickChat in quickChats"
+          :key="quickChat.label"
+          :icon="quickChat.icon"
+          :label="quickChat.label"
+          size="sm"
+          color="neutral"
+          variant="outline"
+          class="rounded-full"
+          @click="createChat(quickChat.label)"
+        />
+      </div>
     </template>
   </UDashboardPanel>
 </template>
