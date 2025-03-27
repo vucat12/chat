@@ -14,6 +14,12 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  mdc: {
+    highlight: {
+      noApiRoute: false
+    }
+  },
+
   future: {
     compatibilityVersion: 4
   },
@@ -23,6 +29,12 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2024-07-11',
+
+  nitro: {
+    experimental: {
+      openAPI: true
+    }
+  },
 
   hub: {
     ai: true,

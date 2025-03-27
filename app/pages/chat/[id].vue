@@ -31,6 +31,8 @@ onMounted(() => {
 
 <template>
   <UDashboardPanel id="chat" class="overflow-y-auto">
+    <UDashboardNavbar class="border-b-0 absolute z-10" />
+
     <UContainer class="flex-1 flex flex-col gap-4 sm:gap-6">
       <UChatMessages
         :messages="messages"

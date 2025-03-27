@@ -34,7 +34,8 @@ const items = computed(() => groups.value?.flatMap((group) => {
     type: 'label' as const
   }, ...group.items.map(item => ({
     ...item,
-    slot: 'chat' as const
+    slot: 'chat' as const,
+    icon: undefined
   }))]
 }))
 
@@ -74,7 +75,12 @@ async function deleteChat(id: string) {
       }, ...groups]"
     />
 
-    <UDashboardSidebar collapsible resizable class="bg-(--ui-bg-elevated)/50">
+    <UDashboardSidebar
+      :min-size="12"
+      collapsible
+      resizable
+      class="bg-(--ui-bg-elevated)/50"
+    >
       <template #header="{ collapsed }">
         <NuxtLink to="/" class="flex items-end gap-1.5">
           <Logo class="h-8 w-auto shrink-0" />
@@ -88,30 +94,32 @@ async function deleteChat(id: string) {
       </template>
 
       <template #default="{ collapsed }">
-        <div class="flex flex-col-reverse gap-1.5">
+        <div class="flex flex-col gap-1.5">
+          <UButton
+            v-bind="collapsed ? {
+              icon: 'i-lucide-plus',
+              variant: 'soft'
+            } : {
+              label: 'New chat',
+              variant: 'subtle'
+            }"
+            block
+            to="/"
+          />
+
           <template v-if="collapsed">
             <UDashboardSearchButton collapsed />
             <UDashboardSidebarCollapse />
           </template>
-
-          <UButton
-            v-bind="collapsed ? { icon: 'i-lucide-plus' } : { label: 'New chat' }"
-            variant="subtle"
-            block
-            to="/"
-          />
         </div>
 
         <UNavigationMenu
+          v-if="!collapsed"
           :items="items"
           :collapsed="collapsed"
           orientation="vertical"
           :ui="{ link: 'overflow-hidden' }"
         >
-          <template #chat-leading="{ item }">
-            <UIcon v-show="collapsed" :name="item.icon" class="shrink-0 size-5 text-(--ui-primary) group-data-[state=open]:text-(--ui-primary)" />
-          </template>
-
           <template #chat-trailing="{ item }">
             <div class="flex -mr-1.25 translate-x-full group-hover:translate-x-0 transition-transform">
               <UButton
