@@ -21,16 +21,7 @@ async function onSubmit() {
 <template>
   <UDashboardPanel id="home" :ui="{ body: 'flex flex-col justify-center flex-1' }">
     <template #header>
-      <UDashboardNavbar class="sticky top-0 border-b-0 z-10 bg-(--ui-bg)/75 backdrop-blur-lg w-full lg:hidden">
-        <template #right>
-          <UButton
-            color="neutral"
-            variant="ghost"
-            icon="i-lucide-plus"
-            to="/"
-          />
-        </template>
-      </UDashboardNavbar>
+      <DashboardNavbar />
     </template>
 
     <template #body>

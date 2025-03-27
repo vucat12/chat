@@ -1,4 +1,5 @@
 <script lang="ts">
+import { useDebounceFn } from '@vueuse/core'
 import type { Message } from '@ai-sdk/vue'
 
 interface ChatMessagesProps {
@@ -10,22 +11,105 @@ interface ChatMessagesProps {
 <script setup lang="ts">
 const props = defineProps<ChatMessagesProps>()
 
-const { el, shouldAutoScroll, scrollToBottom } = useChatScroll(toRef(props, 'messages'), toRef(props, 'status'))
+const el = ref<HTMLElement | null>(null)
+const parent = ref<HTMLElement | null>(null)
+const shouldAutoScroll = ref(true)
+
+function scrollToBottom(element?: HTMLElement | null) {
+  const target = element || parent.value
+  if (!target) {
+    return
+  }
+
+  target.scrollTop = target.scrollHeight
+}
+
+// Consolidated scroll logic with debounced scrolling
+const debouncedScroll = useDebounceFn(() => {
+  if (shouldAutoScroll.value) {
+    scrollToBottom(parent.value)
+  }
+}, 10)
+
+// Watch for new messages or content changes
+watch(
+  () => [props.messages.length, props.status],
+  ([_, newStatus]) => {
+    // Only auto-scroll when appropriate
+    if (shouldAutoScroll.value && (newStatus === 'streaming' || newStatus === 'submitted')) {
+      nextTick(debouncedScroll)
+    }
+  }
+)
+
+// Watch for content changes during streaming (for when message content updates)
+watch(
+  () => props.messages,
+  () => {
+    if (props.status === 'streaming' && shouldAutoScroll.value) {
+      debouncedScroll()
+    }
+  },
+  { deep: true }
+)
+
+function checkScrollPosition() {
+  if (!parent.value) {
+    return
+  }
+
+  const scrollPosition = parent.value.scrollTop + parent.value.clientHeight
+  const scrollHeight = parent.value.scrollHeight
+
+  // If we're within 100px of the bottom, enable auto-scroll
+  shouldAutoScroll.value = scrollHeight - scrollPosition < 100
+}
+
+function getScrollParent(node: HTMLElement | null) {
+  if (!node) {
+    return null
+  }
+
+  if (node.scrollHeight > node.clientHeight) {
+    return node
+  } else {
+    return getScrollParent(node.parentNode as HTMLElement)
+  }
+}
+
+// Initial scroll to bottom
+onMounted(() => {
+  parent.value = getScrollParent(el.value)
+
+  if (parent.value) {
+    // Add scroll event listener to detect when user scrolls manually
+    parent.value.addEventListener('scroll', checkScrollPosition)
+  }
+
+  nextTick(() => scrollToBottom(parent.value))
+})
+
+// Clean up event listener
+onUnmounted(() => {
+  if (parent.value) {
+    parent.value.removeEventListener('scroll', checkScrollPosition)
+  }
+})
 </script>
 
 <template>
-  <div ref="el" class="w-full flex flex-col flex-1">
+  <div ref="el" class="w-full flex flex-col flex-1 pb-4">
     <div class="flex flex-col flex-1 gap-4 sm:gap-6 w-full">
       <UPageCard
         v-for="message in messages"
         :key="message.id"
-        class=""
         :variant="message.role === 'assistant' ? 'naked' : 'soft'"
         :class="[
           message.role === 'assistant'
             ? 'me-auto'
-            : 'ms-auto'
+            : 'ms-auto rounded-full'
         ]"
+        :ui="{ container: '!px-2.5 !py-1.5' }"
       >
         <MDC :value="message.content" :cache-key="message.id" class="*:first:mt-0 *:last:mb-0" />
       </UPageCard>
@@ -37,28 +121,18 @@ const { el, shouldAutoScroll, scrollToBottom } = useChatScroll(toRef(props, 'mes
       </div>
     </div>
 
-    <Transition name="fade">
-      <div v-if="!shouldAutoScroll">
-        <UButton
-          class="absolute top-0 left-1/2 -translate-x-1/2 z-10 rounded-full"
-          icon="i-lucide-arrow-down"
-          color="neutral"
-          variant="outline"
-          @click="scrollToBottom()"
-        />
-      </div>
-    </Transition>
+    <div v-if="!shouldAutoScroll" class="sticky bottom-0 inset-x-0 flex justify-end pointer-events-none px-2.5">
+      <UButton
+        icon="i-lucide-arrow-down"
+        color="neutral"
+        variant="outline"
+        class="pointer-events-auto rounded-full"
+        @click="() => {
+          scrollToBottom()
+
+          shouldAutoScroll = true
+        }"
+      />
+    </div>
   </div>
 </template>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>

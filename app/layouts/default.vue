@@ -5,6 +5,8 @@ const route = useRoute()
 const toast = useToast()
 const overlay = useOverlay()
 
+const open = ref(false)
+
 const deleteModal = overlay.create(LazyModalConfirm, {
   props: {
     title: 'Delete chat',
@@ -24,6 +26,8 @@ const { data: chats, refresh } = useFetch('/api/chats', {
 
 watch(() => route.params.id, () => {
   refresh()
+
+  open.value = false
 })
 
 const { groups } = useChats(chats)
@@ -82,6 +86,7 @@ defineShortcuts({
     />
 
     <UDashboardSidebar
+      v-model:open="open"
       :min-size="12"
       collapsible
       resizable
@@ -111,6 +116,7 @@ defineShortcuts({
             }"
             block
             to="/"
+            @click="open = false"
           />
 
           <template v-if="collapsed">

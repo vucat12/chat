@@ -41,23 +41,10 @@ onMounted(() => {
 
 <template>
   <UDashboardPanel id="chat" class="overflow-y-auto">
-    <UDashboardNavbar class="sticky top-0 border-b-0 z-10 bg-(--ui-bg)/75 backdrop-blur-lg w-full lg:hidden">
-      <template #right>
-        <UButton
-          color="neutral"
-          variant="ghost"
-          icon="i-lucide-plus"
-          to="/"
-        />
-      </template>
-    </UDashboardNavbar>
+    <DashboardNavbar />
 
     <UContainer class="flex-1 flex flex-col gap-4 sm:gap-6">
-      <UChatMessages
-        :messages="messages"
-        :status="status"
-        class="py-8"
-      />
+      <UChatMessages :messages="messages" :status="status" />
 
       <UChatPrompt
         v-model="input"
@@ -65,7 +52,7 @@ onMounted(() => {
         :error="error"
         :reload="reload"
         :stop="stop"
-        class="!sticky bottom-0 inset-x-0 [view-transition-name:chat-prompt] rounded-b-none z-10 backdrop-blur-lg"
+        class="!sticky bottom-0 inset-x-0 [view-transition-name:chat-prompt] rounded-b-none z-10 backdrop-blur"
         @submit="handleSubmit"
       >
         <template #footer>
@@ -73,23 +60,5 @@ onMounted(() => {
         </template>
       </UChatPrompt>
     </UContainer>
-
-    <!-- <template #footer>
-      <UContainer>
-        <UChatPrompt
-          v-model="input"
-          :status="status"
-          :error="error"
-          :reload="reload"
-          :stop="stop"
-          class="[view-transition-name:chat-prompt] rounded-b-none"
-          @submit="handleSubmit"
-        >
-          <template #footer>
-            <ModelSelect v-model="model" />
-          </template>
-        </UChatPrompt>
-      </UContainer>
-    </template> -->
   </UDashboardPanel>
 </template>

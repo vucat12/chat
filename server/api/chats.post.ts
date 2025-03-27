@@ -6,6 +6,7 @@ export default defineEventHandler(async (event) => {
 
   let title
   try {
+    // @ts-expect-error - hubAI is not well typed
     const { response } = await hubAI().run('@cf/meta/llama-3-8b-instruct', {
       stream: false,
       messages: [{
@@ -21,8 +22,6 @@ export default defineEventHandler(async (event) => {
         content: input
       }]
     })
-
-    console.log('response', response)
 
     title = response
   } catch {

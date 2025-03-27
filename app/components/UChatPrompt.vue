@@ -40,7 +40,7 @@ const submitButtonProps = computed(() => {
       }
     },
     error: {
-      icon: 'i-lucide-refresh-ccw',
+      icon: 'i-lucide-rotate-ccw',
       color: 'error' as const,
       variant: 'soft' as const,
       onClick() {
@@ -72,7 +72,10 @@ defineShortcuts({
 </script>
 
 <template>
-  <form class="relative flex flex-col items-stretch gap-2 p-2.5 w-full rounded-[calc(var(--ui-radius)*2)] bg-(--ui-bg-elevated)/50 ring ring-(--ui-border)" @submit.prevent="onSubmit">
+  <form
+    class="relative flex flex-col items-stretch gap-2 p-2.5 w-full rounded-[calc(var(--ui-radius)*2)] bg-(--ui-bg-elevated)/50 ring ring-(--ui-border)"
+    @submit.prevent="onSubmit"
+  >
     <UTextarea
       ref="textarea"
       v-model="input"
@@ -95,23 +98,5 @@ defineShortcuts({
     <div class="flex items-center gap-1.5">
       <slot name="footer" />
     </div>
-    <!-- <UInput
-      v-model="input"
-      placeholder="Type here..."
-      class="w-full"
-      :disabled="Boolean(error)"
-    />
-    <UButton
-      v-if="isLoading"
-      icon="i-lucide-square"
-      color="neutral"
-      @click="stop"
-    />
-    <UButton
-      v-else
-      icon="i-lucide-send"
-      type="submit"
-      color="neutral"
-    /> -->
   </form>
 </template>
