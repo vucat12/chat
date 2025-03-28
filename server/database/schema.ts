@@ -4,12 +4,12 @@ import { sqliteTable, text, integer, index, unique } from 'drizzle-orm/sqlite-co
 
 export const users = sqliteTable('users', {
   id: text().primaryKey().$defaultFn(() => randomUUID()),
-  email: text(),
-  name: text(),
-  avatar: text(),
+  email: text().notNull(),
+  name: text().notNull(),
+  avatar: text().notNull(),
   username: text().notNull(),
   provider: text({ enum: ['github'] }).notNull(),
-  providerId: text().notNull(),
+  providerId: integer().notNull(),
   createdAt: integer({ mode: 'timestamp' }).notNull().default(sql`(unixepoch())`)
 }, t => [
   unique().on(t.provider, t.providerId)

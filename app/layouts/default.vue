@@ -26,7 +26,7 @@ const { data: chats, refresh } = useFetch('/api/chats', {
   }))
 })
 
-watch(() => route.params.id, () => {
+watch([() => route.params.id, loggedIn], () => {
   refresh()
 
   open.value = false

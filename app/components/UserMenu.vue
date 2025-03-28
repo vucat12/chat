@@ -122,7 +122,7 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
 }, {
   label: 'GitHub repository',
   icon: 'i-simple-icons-github',
-  to: 'https://github.com/nuxt-ui-pro/dashboard',
+  to: 'https://github.com/nuxt-ui-pro/chat',
   target: '_blank'
 }, {
   label: 'Upgrade to Pro',
@@ -151,7 +151,7 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
         trailingIcon: collapsed ? undefined : 'i-lucide-chevrons-up-down'
       }"
       :avatar="{
-        src: user?.avatar,
+        src: user?.avatar || undefined,
         alt: user?.name || user?.username
       }"
       color="neutral"

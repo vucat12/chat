@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
   const workersAI = createWorkersAI({ binding: hubAI(), gateway })
 
   const chat = await db.query.chats.findFirst({
-    where: (chat, { eq }) => and(eq(chat.id, id as string), eq(chat.userId, session.id)),
+    where: (chat, { eq }) => and(eq(chat.id, id as string), eq(chat.userId, session.user?.id || session.id)),
     with: {
       messages: true
     }

@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
 
   const chat = await db.insert(tables.chats).values({
     title: '',
-    userId: session.id
+    userId: session.user?.id || session.id
   }).returning().get()
 
   await db.insert(tables.messages).values({
