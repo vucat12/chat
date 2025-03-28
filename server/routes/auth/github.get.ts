@@ -16,6 +16,11 @@ export default defineOAuthGitHubEventHandler({
         provider: 'github',
         providerId: ghUser.id
       }).returning().get()
+    } else {
+      // Assign anonymous chats with session id to user
+      await db.update(tables.chats).set({
+        userId: user.id
+      }).where(eq(tables.chats.userId, session.id))
     }
 
     await setUserSession(event, { user })
