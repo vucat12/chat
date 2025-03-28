@@ -12,20 +12,20 @@ const emit = defineEmits<{ close: [boolean] }>()
     :title="title"
     :description="description"
     :ui="{
-      footer: 'justify-end'
+      footer: 'flex-row-reverse justify-start'
     }"
     :close="false"
     :dismissible="false"
     @update:open="console.log('open', $event)"
   >
     <template #footer>
+      <UButton label="Delete" @click="emit('close', true)" />
       <UButton
         color="neutral"
         variant="ghost"
         label="Cancel"
         @click="emit('close', false)"
       />
-      <UButton label="Delete" @click="emit('close', true)" />
     </template>
   </UModal>
 </template>
