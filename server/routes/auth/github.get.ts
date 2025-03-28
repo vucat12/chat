@@ -1,29 +1,24 @@
 export default defineOAuthGitHubEventHandler({
-  config: {
-    emailRequired: true
-  },
-  async onSuccess(event, { user }) {
+  async onSuccess(event, { user: ghUser }) {
     const db = useDrizzle()
     const session = await getUserSession(event)
 
-    let dbUser = await db.query.users.findFirst({
-      where: (users, { eq }) => and(eq(users.provider, 'github'), eq(users.providerId, user.id))
+    let user = await db.query.users.findFirst({
+      where: (user, { eq }) => and(eq(user.provider, 'github'), eq(user.providerId, ghUser.id))
     })
-    if (!dbUser) {
-      dbUser = await db.insert(tables.users).values({
+    if (!user) {
+      user = await db.insert(tables.users).values({
         id: session.id,
-        name: user.name,
-        email: user.email,
-        avatar: user.avatar_url,
-        username: user.login,
+        name: ghUser.name || '',
+        email: ghUser.email || '',
+        avatar: ghUser.avatar_url || '',
+        username: ghUser.login,
         provider: 'github',
-        providerId: user.id
+        providerId: ghUser.id
       })
     }
 
-    await setUserSession(event, {
-      user: dbUser
-    })
+    await setUserSession(event, { user })
 
     return sendRedirect(event, '/')
   },
