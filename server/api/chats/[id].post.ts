@@ -44,6 +44,13 @@ export default defineEventHandler(async (event) => {
         role: 'user',
         content: chat.messages[0]!.content
       }]
+    }, {
+      gateway: process.env.CLOUDFLARE_AI_GATEWAY_ID
+        ? {
+            id: process.env.CLOUDFLARE_AI_GATEWAY_ID,
+            cacheTtl: 60 * 60 * 24 // 24 hours
+          }
+        : undefined
     })
     setHeader(event, 'X-Chat-Title', title.replace(/:/g, ''))
     await db.update(tables.chats).set({ title }).where(eq(tables.chats.id, id as string))
