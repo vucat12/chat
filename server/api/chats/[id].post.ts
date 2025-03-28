@@ -16,7 +16,14 @@ export default defineEventHandler(async (event) => {
   const { model, messages } = await readBody(event)
 
   const db = useDrizzle()
-  const workersAI = createWorkersAI({ binding: hubAI() })
+  // Enable AI Gateway if defined in environment variables
+  const gateway = process.env.CLOUDFLARE_AI_GATEWAY_ID
+    ? {
+        id: process.env.CLOUDFLARE_AI_GATEWAY_ID,
+        cacheTtl: 60 * 60 * 24 // 24 hours
+      }
+    : undefined
+  const workersAI = createWorkersAI({ binding: hubAI(), gateway })
 
   const chat = await db.query.chats.findFirst({
     where: (chat, { eq }) => and(eq(chat.id, id as string), eq(chat.userId, session.id)),
@@ -45,12 +52,7 @@ export default defineEventHandler(async (event) => {
         content: chat.messages[0]!.content
       }]
     }, {
-      gateway: process.env.CLOUDFLARE_AI_GATEWAY_ID
-        ? {
-            id: process.env.CLOUDFLARE_AI_GATEWAY_ID,
-            cacheTtl: 60 * 60 * 24 // 24 hours
-          }
-        : undefined
+      gateway
     })
     setHeader(event, 'X-Chat-Title', title.replace(/:/g, ''))
     await db.update(tables.chats).set({ title }).where(eq(tables.chats.id, id as string))
