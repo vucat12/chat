@@ -75,19 +75,8 @@ defineShortcuts({
 
 <template>
   <UDashboardGroup unit="rem">
-    <UDashboardSearch
-      placeholder="Search chats..."
-      :groups="[{
-        id: 'links',
-        items: [{
-          label: 'New chat',
-          to: '/',
-          icon: 'i-lucide-square-pen'
-        }]
-      }, ...groups]"
-    />
-
     <UDashboardSidebar
+      id="default"
       v-model:open="open"
       :min-size="12"
       collapsible
@@ -159,6 +148,18 @@ defineShortcuts({
         />
       </template>
     </UDashboardSidebar>
+
+    <UDashboardSearch
+      placeholder="Search chats..."
+      :groups="[{
+        id: 'links',
+        items: [{
+          label: 'New chat',
+          to: '/',
+          icon: 'i-lucide-square-pen'
+        }]
+      }, ...groups]"
+    />
 
     <slot />
   </UDashboardGroup>
