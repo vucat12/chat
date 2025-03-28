@@ -1,6 +1,23 @@
 import { randomUUID } from 'node:crypto'
 import { sql, relations } from 'drizzle-orm'
-import { sqliteTable, text, integer, index } from 'drizzle-orm/sqlite-core'
+import { sqliteTable, text, integer, index, unique } from 'drizzle-orm/sqlite-core'
+
+export const users = sqliteTable('users', {
+  id: text().primaryKey().$defaultFn(() => randomUUID()),
+  email: text(),
+  name: text(),
+  avatar: text(),
+  username: text().notNull(),
+  provider: text({ enum: ['github'] }).notNull(),
+  providerId: text().notNull(),
+  createdAt: integer({ mode: 'timestamp' }).notNull().default(sql`(unixepoch())`)
+}, t => [
+  unique().on(t.provider, t.providerId)
+])
+
+export const usersRelations = relations(users, ({ many }) => ({
+  chats: many(chats)
+}))
 
 export const chats = sqliteTable('chats', {
   id: text().primaryKey().$defaultFn(() => randomUUID()),
@@ -11,7 +28,11 @@ export const chats = sqliteTable('chats', {
   index('userIdIdx').on(t.userId)
 ])
 
-export const chatsRelations = relations(chats, ({ many }) => ({
+export const chatsRelations = relations(chats, ({ one, many }) => ({
+  user: one(users, {
+    fields: [chats.userId],
+    references: [users.id]
+  }),
   messages: many(messages)
 }))
 

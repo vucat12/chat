@@ -4,6 +4,7 @@ import { LazyModalConfirm } from '#components'
 const route = useRoute()
 const toast = useToast()
 const overlay = useOverlay()
+const { loggedIn, openInPopup } = useUserSession()
 
 const open = ref(false)
 
@@ -98,13 +99,8 @@ defineShortcuts({
       <template #default="{ collapsed }">
         <div class="flex flex-col gap-1.5">
           <UButton
-            v-bind="collapsed ? {
-              icon: 'i-lucide-plus',
-              variant: 'soft'
-            } : {
-              label: 'New chat',
-              variant: 'soft'
-            }"
+            v-bind="collapsed ? { icon: 'i-lucide-plus' } : { label: 'New chat' }"
+            variant="soft"
             block
             to="/"
             @click="open = false"
@@ -139,12 +135,15 @@ defineShortcuts({
       </template>
 
       <template #footer="{ collapsed }">
+        <UserMenu v-if="loggedIn" :collapsed="collapsed" />
         <UButton
-          :label="collapsed ? '' : 'Login'"
-          icon="i-lucide-log-in"
+          v-else
+          :label="collapsed ? '' : 'Login with GitHub'"
+          icon="i-simple-icons-github"
           color="neutral"
           variant="ghost"
           class="w-full"
+          @click="openInPopup('/auth/github')"
         />
       </template>
     </UDashboardSidebar>
