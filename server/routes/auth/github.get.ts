@@ -15,7 +15,7 @@ export default defineOAuthGitHubEventHandler({
         username: ghUser.login,
         provider: 'github',
         providerId: ghUser.id
-      })
+      }).returning().get()
     }
 
     await setUserSession(event, { user })
