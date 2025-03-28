@@ -16,7 +16,7 @@
     "@ai-sdk/vue": "^1.2.1",
     "@iconify-json/lucide": "^1.2.32",
     "@iconify-json/simple-icons": "^1.2.29",
-    "@nuxt/ui-pro": "https://pkg.pr.new/@nuxt/ui-pro@9650078",
+    "@nuxt/ui-pro": "^3.0.2",
     "@nuxthub/core": "^0.8.21",
     "@nuxtjs/mdc": "^0.16.1",
     "@tanstack/vue-virtual": "^3.13.5",
