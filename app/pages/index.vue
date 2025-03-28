@@ -44,40 +44,42 @@ const quickChats = [
 </script>
 
 <template>
-  <UDashboardPanel id="home" :ui="{ body: 'flex flex-col justify-center flex-1 max-w-(--ui-container) mx-auto' }">
+  <UDashboardPanel id="home" :ui="{ body: 'p-0 sm:p-0' }">
     <template #header>
       <DashboardNavbar />
     </template>
 
     <template #body>
-      <h1 class="text-3xl sm:text-4xl text-(--ui-text-highlighted) font-bold">
-        How can I help you today?
-      </h1>
+      <UContainer class="flex-1 flex flex-col justify-center gap-4 sm:gap-6 py-8">
+        <h1 class="text-3xl sm:text-4xl text-(--ui-text-highlighted) font-bold">
+          How can I help you today?
+        </h1>
 
-      <UChatPrompt
-        v-model="input"
-        :status="loading ? 'streaming' : 'ready'"
-        class="[view-transition-name:chat-prompt]"
-        @submit="onSubmit"
-      >
-        <template #footer>
-          <ModelSelect v-model="model" />
-        </template>
-      </UChatPrompt>
+        <UChatPrompt
+          v-model="input"
+          :status="loading ? 'streaming' : 'ready'"
+          class="[view-transition-name:chat-prompt]"
+          @submit="onSubmit"
+        >
+          <template #footer>
+            <ModelSelect v-model="model" />
+          </template>
+        </UChatPrompt>
 
-      <div class="flex flex-wrap gap-2">
-        <UButton
-          v-for="quickChat in quickChats"
-          :key="quickChat.label"
-          :icon="quickChat.icon"
-          :label="quickChat.label"
-          size="sm"
-          color="neutral"
-          variant="outline"
-          class="rounded-full"
-          @click="createChat(quickChat.label)"
-        />
-      </div>
+        <div class="flex flex-wrap gap-2">
+          <UButton
+            v-for="quickChat in quickChats"
+            :key="quickChat.label"
+            :icon="quickChat.icon"
+            :label="quickChat.label"
+            size="sm"
+            color="neutral"
+            variant="outline"
+            class="rounded-full"
+            @click="createChat(quickChat.label)"
+          />
+        </div>
+      </UContainer>
     </template>
   </UDashboardPanel>
 </template>

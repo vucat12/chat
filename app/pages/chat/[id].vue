@@ -45,25 +45,29 @@ onMounted(() => {
 </script>
 
 <template>
-  <UDashboardPanel id="chat" class="overflow-y-auto">
-    <DashboardNavbar />
+  <UDashboardPanel id="chat" class="relative" :ui="{ body: 'p-0 sm:p-0' }">
+    <template #header>
+      <DashboardNavbar />
+    </template>
 
-    <UContainer class="flex-1 flex flex-col gap-4 sm:gap-6">
-      <UChatMessages :messages="messages" :status="status" />
+    <template #body>
+      <UContainer class="flex-1 flex flex-col gap-4 sm:gap-6">
+        <UChatMessages :messages="messages" :status="status" class="lg:pt-(--ui-header-height) pb-4 sm:pb-6" />
 
-      <UChatPrompt
-        v-model="input"
-        :status="status"
-        :error="error"
-        :reload="reload"
-        :stop="stop"
-        class="!sticky bottom-0 inset-x-0 [view-transition-name:chat-prompt] rounded-b-none z-10 backdrop-blur"
-        @submit="handleSubmit"
-      >
-        <template #footer>
-          <ModelSelect v-model="model" />
-        </template>
-      </UChatPrompt>
-    </UContainer>
+        <UChatPrompt
+          v-model="input"
+          :status="status"
+          :error="error"
+          :reload="reload"
+          :stop="stop"
+          class="!sticky bottom-0 inset-x-0 [view-transition-name:chat-prompt] rounded-b-none z-10 backdrop-blur"
+          @submit="handleSubmit"
+        >
+          <template #footer>
+            <ModelSelect v-model="model" />
+          </template>
+        </UChatPrompt>
+      </UContainer>
+    </template>
   </UDashboardPanel>
 </template>

@@ -9,6 +9,8 @@ interface ChatMessagesProps {
 </script>
 
 <script setup lang="ts">
+import { Presence } from 'reka-ui'
+
 const props = defineProps<ChatMessagesProps>()
 
 const el = ref<HTMLElement | null>(null)
@@ -98,41 +100,41 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="el" class="w-full flex flex-col flex-1 pb-4">
-    <div class="flex flex-col flex-1 gap-4 sm:gap-6 w-full">
-      <UPageCard
-        v-for="message in messages"
-        :key="message.id"
-        :variant="message.role === 'assistant' ? 'naked' : 'soft'"
-        :class="[
-          message.role === 'assistant'
-            ? 'me-auto'
-            : 'ms-auto rounded-full'
-        ]"
-        :ui="{ container: '!px-2.5 !py-1.5' }"
-      >
-        <MDC :value="message.content" :cache-key="message.id" class="*:first:mt-0 *:last:mb-0" />
-      </UPageCard>
+  <div ref="el" class="w-full flex flex-col flex-1 gap-4 sm:gap-6">
+    <UPageCard
+      v-for="message in messages"
+      :key="message.id"
+      :variant="message.role === 'assistant' ? 'naked' : 'soft'"
+      :class="[
+        message.role === 'assistant'
+          ? 'me-auto'
+          : 'ms-auto rounded-full'
+      ]"
+      :ui="{ container: '!px-2.5 !py-1.5' }"
+    >
+      <MDC :value="message.content" :cache-key="message.id" class="*:first:mt-0 *:last:mb-0" />
+    </UPageCard>
 
-      <div v-if="status === 'submitted'" class="flex gap-1 max-w-[75%] me-auto px-2.5 py-5">
-        <span class="size-2 rounded-full bg-(--ui-bg-accented) animate-bounce" />
-        <span class="size-2 rounded-full bg-(--ui-bg-accented) animate-bounce [animation-delay:150ms]" />
-        <span class="size-2 rounded-full bg-(--ui-bg-accented) animate-bounce [animation-delay:300ms]" />
+    <div v-if="status === 'submitted'" class="flex gap-1 max-w-[75%] me-auto px-2.5 py-5">
+      <span class="size-2 rounded-full bg-(--ui-bg-accented) animate-bounce" />
+      <span class="size-2 rounded-full bg-(--ui-bg-accented) animate-bounce [animation-delay:150ms]" />
+      <span class="size-2 rounded-full bg-(--ui-bg-accented) animate-bounce [animation-delay:300ms]" />
+    </div>
+
+    <Presence v-slot="{ present }" :present="!shouldAutoScroll">
+      <div :data-state="present ? 'open' : 'closed'" class="data-[state=open]:animate-[fade-in_200ms_ease-out] data-[state=closed]:animate-[fade-out_200ms_ease-in]">
+        <UButton
+          icon="i-lucide-arrow-down"
+          color="neutral"
+          variant="outline"
+          class="rounded-full absolute z-10 right-1/2 translate-x-1/2 bottom-30"
+          @click="() => {
+            scrollToBottom()
+
+            shouldAutoScroll = true
+          }"
+        />
       </div>
-    </div>
-
-    <div v-if="!shouldAutoScroll" class="sticky bottom-0 inset-x-0 flex justify-end pointer-events-none px-2.5">
-      <UButton
-        icon="i-lucide-arrow-down"
-        color="neutral"
-        variant="outline"
-        class="pointer-events-auto rounded-full"
-        @click="() => {
-          scrollToBottom()
-
-          shouldAutoScroll = true
-        }"
-      />
-    </div>
+    </Presence>
   </div>
 </template>
