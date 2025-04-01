@@ -15,9 +15,7 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   mdc: {
-    highlight: {
-      noApiRoute: true
-    }
+    highlight: {}
   },
 
   future: {
