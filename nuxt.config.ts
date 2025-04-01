@@ -15,7 +15,10 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   mdc: {
-    highlight: {}
+    highlight: {
+      // noApiRoute: true
+      shikiEngine: 'javascript'
+    }
   },
 
   future: {

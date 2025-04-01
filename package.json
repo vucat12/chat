@@ -38,7 +38,8 @@
   },
   "resolutions": {
     "unimport": "4.1.1",
-    "vue-tsc": "2.2.2"
+    "vue-tsc": "2.2.2",
+    "@nuxtjs/mdc": "https://pkg.pr.new/@nuxtjs/mdc@947176d"
   },
   "packageManager": "pnpm@10.7.1"
 }
