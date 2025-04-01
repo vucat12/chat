@@ -41,9 +41,9 @@ export default defineEventHandler(async (event) => {
       stream: false,
       messages: [{
         role: 'system',
-        content: `
-        - Generate a short title based on the first message a user begins a conversation with
-        - Ensure it is not more than 30 characters long
+        content: `You are a title generator for a chat:
+        - Generate a short title based on the first user's message
+        - The title should be less than 30 characters long
         - The title should be a summary of the user's message
         - Do not use quotes (' or ") or colons (:) or any other punctuation
         - Do not use markdown, just plain text`
@@ -54,7 +54,7 @@ export default defineEventHandler(async (event) => {
     }, {
       gateway
     })
-    setHeader(event, 'X-Chat-Title', title.replace(/:/g, ''))
+    setHeader(event, 'X-Chat-Title', title.replace(/:/g, '').split('\n')[0])
     await db.update(tables.chats).set({ title }).where(eq(tables.chats.id, id as string))
   }
 

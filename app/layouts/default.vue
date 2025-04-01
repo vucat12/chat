@@ -15,7 +15,7 @@ const deleteModal = overlay.create(LazyModalConfirm, {
   }
 })
 
-const { data: chats, refresh } = useFetch('/api/chats', {
+const { data: chats, refresh: refreshChats } = await useFetch('/api/chats', {
   key: 'chats',
   transform: data => data.map(chat => ({
     id: chat.id,
@@ -26,8 +26,17 @@ const { data: chats, refresh } = useFetch('/api/chats', {
   }))
 })
 
-watch([() => route.params.id, loggedIn], () => {
-  refresh()
+onNuxtReady(() => {
+  const first10 = (chats.value || []).slice(0, 10)
+  for (const chat of first10) {
+    useFetch(`/api/chats/${chat.id}`, {
+      key: `chats/${chat.id}`
+    })
+  }
+})
+
+watch(loggedIn, () => {
+  refreshChats()
 
   open.value = false
 })
@@ -60,7 +69,7 @@ async function deleteChat(id: string) {
     icon: 'i-lucide-trash'
   })
 
-  refresh()
+  refreshChats()
 
   if (route.params.id === id) {
     navigateTo('/')

@@ -5,7 +5,12 @@ const route = useRoute()
 const toast = useToast()
 const { model } = useLLM()
 
-const { data: chat } = await useFetch(`/api/chats/${route.params.id}`)
+const { data: chat } = await useFetch(`/api/chats/${route.params.id}`, {
+  key: `chats/${route.params.id}`,
+  getCachedData(key, nuxtApp) {
+    return nuxtApp.payload.data[key]
+  }
+})
 if (!chat.value) {
   throw createError({ statusCode: 404, statusMessage: 'Chat not found' })
 }
@@ -25,6 +30,8 @@ const { messages, input, handleSubmit, reload, stop, status, error } = useChat({
     if (response.headers.get('X-Chat-Title')) {
       refreshNuxtData('chats')
     }
+    // Clear the cache to fetch all messages next time we go on this chat
+    clearNuxtData(`chats/${route.params.id}`)
   },
   onError(error) {
     const { message } = typeof error.message === 'string' && error.message[0] === '{' ? JSON.parse(error.message) : error

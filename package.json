@@ -13,19 +13,19 @@
     "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
-    "@ai-sdk/vue": "^1.2.3",
+    "@ai-sdk/vue": "^1.2.4",
     "@iconify-json/lucide": "^1.2.34",
     "@iconify-json/simple-icons": "^1.2.30",
     "@nuxt/ui-pro": "^3.0.2",
-    "@nuxthub/core": "^0.8.22",
+    "@nuxthub/core": "^0.8.23",
     "@nuxtjs/mdc": "^0.16.1",
     "@tanstack/vue-virtual": "^3.13.6",
-    "ai": "^4.2.9",
+    "ai": "^4.2.10",
     "date-fns": "^4.1.0",
     "drizzle-orm": "^0.41.0",
-    "nuxt": "^3.16.1",
-    "nuxt-auth-utils": "^0.5.17",
-    "workers-ai-provider": "^0.2.1"
+    "nuxt": "^3.16.2",
+    "nuxt-auth-utils": "^0.5.18",
+    "workers-ai-provider": "^0.2.2"
   },
   "devDependencies": {
     "@iconify-json/logos": "^1.2.4",
@@ -40,5 +40,5 @@
     "unimport": "4.1.1",
     "vue-tsc": "2.2.2"
   },
-  "packageManager": "pnpm@10.7.0"
+  "packageManager": "pnpm@10.7.1"
 }

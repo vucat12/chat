@@ -12,6 +12,7 @@ async function createChat(prompt: string) {
     body: { input: prompt }
   })
 
+  refreshNuxtData('chats')
   navigateTo(`/chat/${chat.id}`)
 }
 
