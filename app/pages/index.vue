@@ -60,8 +60,11 @@ const quickChats = [
           v-model="input"
           :status="loading ? 'streaming' : 'ready'"
           class="[view-transition-name:chat-prompt]"
+          variant="subtle"
           @submit="onSubmit"
         >
+          <UChatPromptSubmit color="neutral" />
+
           <template #footer>
             <ModelSelect v-model="model" />
           </template>

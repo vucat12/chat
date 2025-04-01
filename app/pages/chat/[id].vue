@@ -59,17 +59,26 @@ onMounted(() => {
 
     <template #body>
       <UContainer class="flex-1 flex flex-col gap-4 sm:gap-6">
-        <UChatMessages :messages="messages" :status="status" class="lg:pt-(--ui-header-height) pb-4 sm:pb-6" />
+        <UChatMessages :messages="messages" :status="status" class="lg:pt-(--ui-header-height) pb-4 sm:pb-6">
+          <template #content="{ message }">
+            <MDC :value="message.content" :cache-key="message.id" unwrap="p" />
+          </template>
+        </UChatMessages>
 
         <UChatPrompt
           v-model="input"
-          :status="status"
           :error="error"
-          :reload="reload"
-          :stop="stop"
-          class="!sticky bottom-0 inset-x-0 [view-transition-name:chat-prompt] rounded-b-none z-10 backdrop-blur"
+          variant="subtle"
+          class="sticky bottom-0 [view-transition-name:chat-prompt] rounded-b-none z-10"
           @submit="handleSubmit"
         >
+          <UChatPromptSubmit
+            :status="status"
+            color="neutral"
+            @stop="stop"
+            @reload="reload"
+          />
+
           <template #footer>
             <ModelSelect v-model="model" />
           </template>
