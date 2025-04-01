@@ -26,12 +26,12 @@ const { data: chats, refresh: refreshChats } = await useFetch('/api/chats', {
   }))
 })
 
-onNuxtReady(() => {
+onNuxtReady(async () => {
+  const nuxtApp = useNuxtApp()
   const first10 = (chats.value || []).slice(0, 10)
   for (const chat of first10) {
-    useFetch(`/api/chats/${chat.id}`, {
-      key: `chats/${chat.id}`
-    })
+    // prefetch the chat and store it in the payload
+    nuxtApp.payload.data[`chats/${chat.id}`] = await $fetch(`/api/chats/${chat.id}`)
   }
 })
 
