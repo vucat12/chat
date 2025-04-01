@@ -16,7 +16,7 @@ export default defineNuxtConfig({
 
   mdc: {
     highlight: {
-      noApiRoute: false
+      noApiRoute: true
     }
   },
 
