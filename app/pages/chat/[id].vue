@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { useChat } from '@ai-sdk/vue'
+import { useChat, type Message } from '@ai-sdk/vue'
+import { useClipboard } from '@vueuse/core'
 
 const route = useRoute()
 const toast = useToast()
+const clipboard = useClipboard()
 const { model } = useLLM()
 
 const { data: chat } = await useFetch(`/api/chats/${route.params.id}`, {
@@ -44,6 +46,18 @@ const { messages, input, handleSubmit, reload, stop, status, error } = useChat({
   }
 })
 
+const copied = ref(false)
+
+function copy(e: MouseEvent, message: Message) {
+  clipboard.copy(message.content)
+
+  copied.value = true
+
+  setTimeout(() => {
+    copied.value = false
+  }, 2000)
+}
+
 onMounted(() => {
   if (chat.value?.messages.length === 1) {
     reload()
@@ -59,7 +73,12 @@ onMounted(() => {
 
     <template #body>
       <UContainer class="flex-1 flex flex-col gap-4 sm:gap-6">
-        <UChatMessages :messages="messages" :status="status" class="lg:pt-(--ui-header-height) pb-4 sm:pb-6">
+        <UChatMessages
+          :messages="messages"
+          :status="status"
+          :assistant="{ actions: [{ label: 'Copy', icon: copied ? 'i-lucide-copy-check' : 'i-lucide-copy', onClick: copy }] }"
+          class="lg:pt-(--ui-header-height) pb-4 sm:pb-6"
+        >
           <template #content="{ message }">
             <MDC :value="message.content" :cache-key="message.id" unwrap="p" />
           </template>
