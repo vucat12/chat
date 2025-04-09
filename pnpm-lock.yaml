@@ -7,7 +7,6 @@ settings:
 overrides:
   unimport: 4.1.1
   vue-tsc: 2.2.2
-  '@nuxtjs/mdc': https://pkg.pr.new/@nuxtjs/mdc@947176d
 
 importers:
 
@@ -23,8 +22,8 @@ importers:
         specifier: ^1.2.31
         version: 1.2.31
       '@nuxt/ui-pro':
-        specifier: https://pkg.pr.new/@nuxt/ui-pro@10d41e9
-        version: https://pkg.pr.new/@nuxt/ui-pro@10d41e9(@babel/parser@7.27.0)(db0@0.3.1(drizzle-orm@0.41.0(@cloudflare/workers-types@4.20250409.0)(@opentelemetry/api@1.9.0)(gel@2.0.1)))(embla-carousel@8.6.0)(ioredis@5.6.0)(magicast@0.3.5)(typescript@5.8.3)(vite@6.2.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(yaml@2.7.1))(vue@3.5.13(typescript@5.8.3))(zod@3.24.2)
+        specifier: https://pkg.pr.new/@nuxt/ui-pro@fa00f85
+        version: https://pkg.pr.new/@nuxt/ui-pro@fa00f85(@babel/parser@7.27.0)(db0@0.3.1(drizzle-orm@0.41.0(@cloudflare/workers-types@4.20250409.0)(@opentelemetry/api@1.9.0)(gel@2.0.1)))(embla-carousel@8.6.0)(ioredis@5.6.0)(magicast@0.3.5)(typescript@5.8.3)(vite@6.2.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(yaml@2.7.1))(vue@3.5.13(typescript@5.8.3))(zod@3.24.2)
       '@nuxthub/core':
         specifier: ^0.8.24
         version: 0.8.24(db0@0.3.1(drizzle-orm@0.41.0(@cloudflare/workers-types@4.20250409.0)(@opentelemetry/api@1.9.0)(gel@2.0.1)))(ioredis@5.6.0)(magicast@0.3.5)(vite@6.2.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(yaml@2.7.1))
@@ -1297,8 +1296,8 @@ packages:
     engines: {node: '>=18.12.0'}
     hasBin: true
 
-  '@nuxt/ui-pro@https://pkg.pr.new/@nuxt/ui-pro@10d41e9':
-    resolution: {tarball: https://pkg.pr.new/@nuxt/ui-pro@10d41e9}
+  '@nuxt/ui-pro@https://pkg.pr.new/@nuxt/ui-pro@fa00f85':
+    resolution: {tarball: https://pkg.pr.new/@nuxt/ui-pro@fa00f85}
     version: 3.0.2
     peerDependencies:
       joi: ^17.13.0
@@ -6846,7 +6845,7 @@ snapshots:
       pathe: 2.0.3
       sirv: 3.0.1
       tinyglobby: 0.2.12
-      ufo: 1.5.4
+      ufo: 1.6.1
       unifont: 0.1.7
       unplugin: 2.2.2
       unstorage: 1.15.0(db0@0.3.1(drizzle-orm@0.41.0(@cloudflare/workers-types@4.20250409.0)(@opentelemetry/api@1.9.0)(gel@2.0.1)))(ioredis@5.6.0)
@@ -6887,7 +6886,7 @@ snapshots:
       ohash: 2.0.11
       pathe: 2.0.3
       picomatch: 4.0.2
-      std-env: 3.8.1
+      std-env: 3.9.0
       tinyglobby: 0.2.12
     transitivePeerDependencies:
       - magicast
@@ -6946,7 +6945,7 @@ snapshots:
     transitivePeerDependencies:
       - magicast
 
-  '@nuxt/ui-pro@https://pkg.pr.new/@nuxt/ui-pro@10d41e9(@babel/parser@7.27.0)(db0@0.3.1(drizzle-orm@0.41.0(@cloudflare/workers-types@4.20250409.0)(@opentelemetry/api@1.9.0)(gel@2.0.1)))(embla-carousel@8.6.0)(ioredis@5.6.0)(magicast@0.3.5)(typescript@5.8.3)(vite@6.2.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(yaml@2.7.1))(vue@3.5.13(typescript@5.8.3))(zod@3.24.2)':
+  '@nuxt/ui-pro@https://pkg.pr.new/@nuxt/ui-pro@fa00f85(@babel/parser@7.27.0)(db0@0.3.1(drizzle-orm@0.41.0(@cloudflare/workers-types@4.20250409.0)(@opentelemetry/api@1.9.0)(gel@2.0.1)))(embla-carousel@8.6.0)(ioredis@5.6.0)(magicast@0.3.5)(typescript@5.8.3)(vite@6.2.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(yaml@2.7.1))(vue@3.5.13(typescript@5.8.3))(zod@3.24.2)':
     dependencies:
       '@ai-sdk/vue': 1.2.7(vue@3.5.13(typescript@5.8.3))(zod@3.24.2)
       '@nuxt/kit': 3.16.2(magicast@0.3.5)
@@ -9170,7 +9169,7 @@ snapshots:
       magic-regexp: 0.8.0
       magic-string: 0.30.17
       pathe: 1.1.2
-      ufo: 1.5.4
+      ufo: 1.6.1
       unplugin: 1.16.1
     transitivePeerDependencies:
       - encoding
@@ -9816,7 +9815,7 @@ snapshots:
       mlly: 1.7.4
       regexp-tree: 0.1.27
       type-level-regexp: 0.1.17
-      ufo: 1.5.4
+      ufo: 1.6.1
       unplugin: 1.16.1
 
   magic-string-ast@0.7.1:
