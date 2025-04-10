@@ -56,8 +56,9 @@ const items = computed(() => groups.value?.flatMap((group) => {
 }))
 
 async function deleteChat(id: string) {
-  const shouldDelete = await deleteModal.open()
-  if (!shouldDelete) {
+  const instance = deleteModal.open()
+  const result = await instance.result
+  if (!result) {
     return
   }
 
