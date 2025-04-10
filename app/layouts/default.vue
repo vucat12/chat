@@ -137,6 +137,7 @@ defineShortcuts({
                 variant="ghost"
                 size="xs"
                 class="text-(--ui-text-muted) hover:text-(--ui-primary) hover:bg-(--ui-bg-accented)/50 focus-visible:bg-(--ui-bg-accented)/50 p-0.5"
+                tabindex="-1"
                 @click.stop.prevent="deleteChat((item as any).id)"
               />
             </div>
