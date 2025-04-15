@@ -24,7 +24,7 @@
     "date-fns": "^4.1.0",
     "drizzle-orm": "^0.41.0",
     "nuxt": "^3.16.2",
-    "nuxt-auth-utils": "https://pkg.pr.new/atinux/nuxt-auth-utils@f0d483b",
+    "nuxt-auth-utils": "^0.5.20",
     "workers-ai-provider": "^0.3.0"
   },
   "devDependencies": {
