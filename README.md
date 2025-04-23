@@ -1,6 +1,6 @@
 # Nuxt Chat Template with Nuxt UI Pro
 
-Get started with the Nuxt 3 chat template with multiple pages, collapsible sidebar, keyboard shortcuts, light & dark more, command palette and more, powered by the [Nuxt UI Pro](https://ui.nuxt.com/getting-started/installation/pro/nuxt) UI Library.
+Get started with this Nuxt 3 chat template featuring AI-powered conversations, chat history, multiple pages, collapsible sidebar, keyboard shortcuts, light & dark mode, command palette and more. Built with [Nuxt UI Pro](https://ui.nuxt.com/getting-started/installation/pro/nuxt) components and integrated with Workers AI for a complete chat experience.
 
 [Live Demo](https://chat-template.nuxt.dev)
 
