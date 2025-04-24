@@ -22,7 +22,7 @@
     "@tanstack/vue-virtual": "^3.13.6",
     "ai": "^4.3.9",
     "date-fns": "^4.1.0",
-    "drizzle-orm": "^0.42.0",
+    "drizzle-orm": "^0.43.0",
     "nuxt": "^3.16.2",
     "nuxt-auth-utils": "^0.5.20",
     "shiki-stream": "^0.1.2",
@@ -35,12 +35,16 @@
     "drizzle-kit": "^0.31.0",
     "eslint": "^9.25.1",
     "typescript": "^5.8.3",
-    "vue-tsc": "^2.2.2",
-    "wrangler": "^4.13.0"
+    "vue-tsc": "^2.2.10",
+    "wrangler": "^4.13.1"
   },
   "resolutions": {
-    "unimport": "4.1.1",
-    "vue-tsc": "2.2.2"
+    "unimport": "4.1.1"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "workerd"
+    ]
   },
   "packageManager": "pnpm@10.9.0"
 }
