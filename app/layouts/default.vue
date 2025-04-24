@@ -51,7 +51,7 @@ const items = computed(() => groups.value?.flatMap((group) => {
     ...item,
     slot: 'chat' as const,
     icon: undefined,
-    class: item.label === 'Untitled' ? 'text-(--ui-text-muted)' : ''
+    class: item.label === 'Untitled' ? 'text-muted' : ''
   }))]
 }))
 
@@ -92,12 +92,12 @@ defineShortcuts({
       :min-size="12"
       collapsible
       resizable
-      class="bg-(--ui-bg-elevated)/50"
+      class="bg-elevated/50"
     >
       <template #header="{ collapsed }">
         <NuxtLink to="/" class="flex items-end gap-0.5">
           <Logo class="h-8 w-auto shrink-0" />
-          <span v-if="!collapsed" class="text-xl font-bold text-(--ui-text-highlighted)">Chat</span>
+          <span v-if="!collapsed" class="text-xl font-bold text-highlighted">Chat</span>
         </NuxtLink>
 
         <div v-if="!collapsed" class="flex items-center gap-1.5 ms-auto">
@@ -136,7 +136,7 @@ defineShortcuts({
                 color="neutral"
                 variant="ghost"
                 size="xs"
-                class="text-(--ui-text-muted) hover:text-(--ui-primary) hover:bg-(--ui-bg-accented)/50 focus-visible:bg-(--ui-bg-accented)/50 p-0.5"
+                class="text-muted hover:text-primary hover:bg-accented/50 focus-visible:bg-accented/50 p-0.5"
                 tabindex="-1"
                 @click.stop.prevent="deleteChat((item as any).id)"
               />
