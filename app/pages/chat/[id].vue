@@ -1,6 +1,12 @@
 <script setup lang="ts">
+import type { DefineComponent } from 'vue'
 import { useChat, type Message } from '@ai-sdk/vue'
 import { useClipboard } from '@vueuse/core'
+import ProseStreamPre from '../../components/prose/PreStream.vue'
+
+const components = {
+  pre: ProseStreamPre as unknown as DefineComponent
+}
 
 const route = useRoute()
 const toast = useToast()
@@ -81,7 +87,13 @@ onMounted(() => {
           :spacing-offset="160"
         >
           <template #content="{ message }">
-            <MDCCached :value="message.content" :cache-key="message.id" unwrap="p" />
+            <MDCCached
+              :value="message.content"
+              :cache-key="message.id"
+              unwrap="p"
+              :components="components"
+              :parser-options="{ highlight: false }"
+            />
           </template>
         </UChatMessages>
 

@@ -48,6 +48,9 @@ importers:
       nuxt-auth-utils:
         specifier: ^0.5.20
         version: 0.5.20(magicast@0.3.5)
+      shiki-stream:
+        specifier: ^0.1.2
+        version: 0.1.2(react@19.1.0)(vue@3.5.13(typescript@5.8.3))
       workers-ai-provider:
         specifier: ^0.3.0
         version: 0.3.0
@@ -4616,6 +4619,17 @@ packages:
   shell-quote@1.8.2:
     resolution: {integrity: sha512-AzqKpGKjrj7EM6rKVQEPpB288oCfnrEIuyoT9cyF4nmGa7V8Zk6f7RRqYisX8X9m+Q7bd632aZW4ky7EhbQztA==}
     engines: {node: '>= 0.4'}
+
+  shiki-stream@0.1.2:
+    resolution: {integrity: sha512-VtzJT2Sn2vwFoJEhKv71/M6Cl7e/m6p0vIVDgJsYKUpV7E+0zayJsuVuU2ltiSEeWUrqncHSPx8i/xKrRqK6Mw==}
+    peerDependencies:
+      react: ^19.0.0
+      vue: ^3.2.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      vue:
+        optional: true
 
   shiki@3.3.0:
     resolution: {integrity: sha512-j0Z1tG5vlOFGW8JVj0Cpuatzvshes7VJy5ncDmmMaYcmnGW0Js1N81TOW98ivTFNZfKRn9uwEg/aIm638o368g==}
@@ -10806,6 +10820,13 @@ snapshots:
   shebang-regex@3.0.0: {}
 
   shell-quote@1.8.2: {}
+
+  shiki-stream@0.1.2(react@19.1.0)(vue@3.5.13(typescript@5.8.3)):
+    dependencies:
+      '@shikijs/core': 3.3.0
+    optionalDependencies:
+      react: 19.1.0
+      vue: 3.5.13(typescript@5.8.3)
 
   shiki@3.3.0:
     dependencies:

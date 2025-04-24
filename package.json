@@ -25,6 +25,7 @@
     "drizzle-orm": "^0.42.0",
     "nuxt": "^3.16.2",
     "nuxt-auth-utils": "^0.5.20",
+    "shiki-stream": "^0.1.2",
     "workers-ai-provider": "^0.3.0"
   },
   "devDependencies": {
