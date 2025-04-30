@@ -17,8 +17,8 @@ useHead({
   }
 })
 
-const title = 'Nuxt UI Pro - Chat template'
-const description = 'Nuxt UI Pro is a collection of premium Vue components built on top of Nuxt UI to create beautiful & responsive Nuxt applications in minutes.'
+const title = 'Nuxt AI Chatbot template'
+const description = 'A full-featured, hackable Nuxt AI chatbot template made with Nuxt UI Pro.'
 
 useSeoMeta({
   title,
