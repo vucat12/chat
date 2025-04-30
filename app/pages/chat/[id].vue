@@ -14,7 +14,7 @@ const clipboard = useClipboard()
 const { model } = useLLM()
 
 const { data: chat } = await useFetch(`/api/chats/${route.params.id}`, {
-  // cache: 'force-cache'
+  cache: 'force-cache'
 })
 if (!chat.value) {
   throw createError({ statusCode: 404, statusMessage: 'Chat not found', fatal: true })
