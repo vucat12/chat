@@ -3,10 +3,10 @@
 [![Nuxt UI Pro](https://img.shields.io/badge/Made%20with-Nuxt%20UI%20Pro-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com/pro)
 [![Deploy to NuxtHub](https://img.shields.io/badge/Deploy%20to-NuxtHub-00DC82?logo=nuxt&labelColor=020420)](https://hub.nuxt.com/new?repo=nuxt-ui-pro/chat)
 
-Full-featured AI Chatbot Nuxt application with authentication, chat history, multiple pages, collapsible sidebar, keyboard shortcuts, light & dark mode, command palette and more. Built with [Nuxt UI Pro](https://ui.nuxt.com/getting-started/installation/pro/nuxt) components and integrated with [Workers AI](https://ai.cloudflare.com) for a complete chat experience.
+Full-featured AI Chatbot Nuxt application with authentication, chat history, multiple pages, collapsible sidebar, keyboard shortcuts, light & dark mode, command palette and more. Built using [Nuxt UI Pro](https://ui.nuxt.com/pro) components and integrated with [Workers AI](https://ai.cloudflare.com) for a complete chat experience.
 
 - [Live demo](https://chat-template.nuxt.dev/)
-- [Documentation](https://ui.nuxt.com/pro/getting-started)
+- [Documentation](https://ui.nuxt.com/getting-started/installation/pro/nuxt)
 
 <a href="https://chat-template.nuxt.dev/" target="_blank">
   <picture>
@@ -18,15 +18,15 @@ Full-featured AI Chatbot Nuxt application with authentication, chat history, mul
 
 ## Features
 
-- Streaming of AI messages with the [AI SDK](https://sdk.vercel.ai)
-- Choose between a list of models available from [Workers AI](https://ai.cloudflare.com)
-- Authentication with  with [nuxt-auth-utils](https://github.com/atinux/nuxt-auth-utils)
-- Save chat threads into [NuxtHub database](https://hub.nuxt.com/docs/features/database) using [Drizzle ORM](https://orm.drizzle.team)
-- Deploy for free & zero config on [NuxtHub](https://hub.nuxt.com)
+- ⚡️ **Streaming AI messages** powered by the [Vercel AI SDK ](https://sdk.vercel.ai)
+- 🤖 **Multiple model support** via [Workers AI](https://ai.cloudflare.com)
+- 🔐 **Authentication** via [nuxt-auth-utils](https://github.com/atinux/nuxt-auth-utils)
+- 💾 **Chat history persistence** using [NuxtHub database](https://hub.nuxt.com/docs/features/database) and [Drizzle ORM](https://orm.drizzle.team)
+- 🚀 **One-click deploy** to your Cloudflare account with NuxtHub: [deploy now](https://hub.nuxt.com/new?repo=nuxt-ui-pro/chat)
 
 ## Quick Start
 
-```bash [Terminal]
+```bash
 npx nuxi@latest init -t github:nuxt-ui-pro/chat
 ```
 
@@ -38,7 +38,23 @@ Make sure to install the dependencies:
 pnpm install
 ```
 
-## Development Server
+Next, link a NuxtHub project (even if not deployed) to access AI models in development:
+
+```bash
+npx nuxthub link
+```
+
+> [!TIP]
+> It works with free Cloudflare and NuxtHub accounts.
+
+To add authentication with GitHub, you need to [create a GitHub OAuth application](https://github.com/settings/applications/new) and then fill the credentials in your `.env`:
+
+```env
+NUXT_OAUTH_GITHUB_CLIENT_ID=<your-github-oauth-app-client-id>
+NUXT_OAUTH_GITHUB_CLIENT_SECRET=<your-github-oauth-app-client-secret>
+```
+
+## Development
 
 Start the development server on `http://localhost:3000`:
 
@@ -54,13 +70,23 @@ Build the application for production:
 pnpm build
 ```
 
+> [!IMPORTANT]
+> Make sure to add your [Nuxt UI Pro License](https://ui.nuxt.com/getting-started/license) in order to build for production
+
 Locally preview production build:
 
 ```bash
 pnpm preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Deploy to your Cloudflare account with zero configuration:
+
+```bash
+npx nuxthub deploy
+```
+
+> [!NOTE]
+> NuxtHub will automatically spawn a D1 database and apply the database migrations when deploying your project.
 
 ## Renovate integration
 
