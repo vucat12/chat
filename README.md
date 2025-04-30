@@ -19,7 +19,7 @@ Full-featured AI Chatbot Nuxt application with authentication, chat history, mul
 ## Features
 
 - ⚡️ **Streaming AI messages** powered by the [Vercel AI SDK ](https://sdk.vercel.ai)
-- 🤖 **Multiple model support** via [Workers AI](https://ai.cloudflare.com)
+- 🤖 **Multiple model support** via [Workers AI](https://ai.cloudflare.com) with support for [AI Gateway](https://developers.cloudflare.com/ai-gateway/)
 - 🔐 **Authentication** via [nuxt-auth-utils](https://github.com/atinux/nuxt-auth-utils)
 - 💾 **Chat history persistence** using [NuxtHub database](https://hub.nuxt.com/docs/features/database) and [Drizzle ORM](https://orm.drizzle.team)
 - 🚀 **One-click deploy** to your Cloudflare account with NuxtHub: [deploy now](https://hub.nuxt.com/new?repo=nuxt-ui-pro/chat)
@@ -87,6 +87,8 @@ npx nuxthub deploy
 
 > [!NOTE]
 > NuxtHub will automatically spawn a D1 database and apply the database migrations when deploying your project.
+
+Optionally, you can create a [Cloudflare AI Gateway](https://developers.cloudflare.com/ai-gateway/) to have usage analytics and the ability to cache response to reduce costs. Once created, you can add the `NUXT_CLOUDFLARE_GATEWAY_ID` environment variable with the named of your gateway.
 
 ## Renovate integration
 
