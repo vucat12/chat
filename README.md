@@ -1,13 +1,12 @@
 # Nuxt AI Chatbot Template
 
-Get started with this Nuxt 3 chat template featuring AI-powered conversations, chat history, multiple pages, collapsible sidebar, keyboard shortcuts, light & dark mode, command palette and more. Built with [Nuxt UI Pro](https://ui.nuxt.com/getting-started/installation/pro/nuxt) components and integrated with Workers AI for a complete chat experience.
+[![Nuxt UI Pro](https://img.shields.io/badge/Made%20with-Nuxt%20UI%20Pro-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com/pro)
+[![Deploy to NuxtHub](https://img.shields.io/badge/Deploy%20to-NuxtHub-00DC82?logo=nuxt&labelColor=020420)](https://hub.nuxt.com/new?repo=nuxt-ui-pro/chat)
 
-[![Nuxt UI Pro](https://img.shields.io/badge/Made%20with-Nuxt%20UI%20Pro-00DC82?logo=nuxt.js&labelColor=020420)](https://ui.nuxt.com/pro)
+Full-featured AI Chatbot Nuxt application with authentication, chat history, multiple pages, collapsible sidebar, keyboard shortcuts, light & dark mode, command palette and more. Built with [Nuxt UI Pro](https://ui.nuxt.com/getting-started/installation/pro/nuxt) components and integrated with [Workers AI](https://ai.cloudflare.com) for a complete chat experience.
 
 - [Live demo](https://chat-template.nuxt.dev/)
 - [Documentation](https://ui.nuxt.com/pro/getting-started)
-
-[![Deploy to NuxtHub](https://hub.nuxt.com/button.svg)](https://hub.nuxt.com/new?repo=nuxt-ui-pro/chat)
 
 <a href="https://chat-template.nuxt.dev/" target="_blank">
   <picture>
@@ -16,6 +15,14 @@ Get started with this Nuxt 3 chat template featuring AI-powered conversations, c
     <img alt="Nuxt AI Chatbot Template" src="https://assets.hub.nuxt.com/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJodHRwczovL2NoYXQtdGVtcGxhdGUubnV4dC5kZXYiLCJpYXQiOjE3NDI4NDY2ODB9.n4YCsoNz8xatox7UMoYZFNo7iS1mC_DT0h0A9cKRoTw.jpg">
   </picture>
 </a>
+
+## Features
+
+- Streaming of AI messages with the [AI SDK](https://sdk.vercel.ai)
+- Choose between a list of models available from [Workers AI](https://ai.cloudflare.com)
+- Authentication with  with [nuxt-auth-utils](https://github.com/atinux/nuxt-auth-utils)
+- Save chat threads into [NuxtHub database](https://hub.nuxt.com/docs/features/database) using [Drizzle ORM](https://orm.drizzle.team)
+- Deploy for free & zero config on [NuxtHub](https://hub.nuxt.com)
 
 ## Quick Start
 
