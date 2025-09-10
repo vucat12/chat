@@ -1,0 +1,75 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+  "enabledManagers": [
+    "npm",
+    "pnpm",
+    "dockerfile",
+    "bun"
+  ],
+  "packageRules": [
+    {
+      "description": "Group all non-major dependency updates into a single PR",
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "groupName": "chore(deps): non-major updates",
+      "schedule": [
+        "after 3am on monday"
+      ]
+    },
+    {
+      "description": "Separate major updates so they are reviewed explicitly",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "groupName": "chore(deps): major updates",
+      "automerge": false
+    },
+    {
+      "description": "Pin devDependencies to reduce churn",
+      "matchPackagePatterns": [
+        "^@types/"
+      ],
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "automerge": true,
+      "automergeType": "branch",
+      "labels": [
+        "auto-approve",
+        "dev-dep"
+      ]
+    }
+  ],
+  "prConcurrentLimit": 6,
+  "prHourlyLimit": 2,
+  "timezone": "Asia/Singapore",
+  "reviewers": [],
+  "commitMessageAction": "update",
+  "commitMessageTopic": "renovate",
+  "labels": [
+    "renovate"
+  ],
+  "dependencyDashboard": true,
+  "assignees": [],
+  "stabilityDays": 2,
+  "ignorePaths": [
+    "server/database/migrations/**",
+    "public/**"
+  ],
+  "postUpgradeTasks": {
+    "commands": [
+      "bun install || npm install --frozen-lockfile"
+    ],
+    "fileMatch": [
+      "package.json",
+      "pnpm-lock.yaml",
+      "bun.lockb"
+    ]
+  },
+  "automergeType": "branch"
+}
